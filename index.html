@@ -35,6 +35,10 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
+
+#adminPanel {
+  display: none;
+}
 </style>
 </head>
 
@@ -47,13 +51,17 @@ button {
   <input id="password" type="password" placeholder="Password"><br>
 
   <button onclick="login()">Login</button>
+</div>
 
-  <h3>Users:</h3>
+<div class="box" id="adminPanel">
+  <h3>👑 ADMIN PANEL</h3>
   <ul id="list"></ul>
 </div>
 
 <script>
-// хадгалах
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "1234";
+
 function login() {
   let u = document.getElementById("username").value;
   let p = document.getElementById("password").value;
@@ -63,14 +71,22 @@ function login() {
     return;
   }
 
+  // admin шалгах
+  if(u === ADMIN_USER && p === ADMIN_PASS) {
+    document.getElementById("adminPanel").style.display = "block";
+    showUsers();
+    return;
+  }
+
+  // user хадгалах
   let users = JSON.parse(localStorage.getItem("users") || "[]");
   users.push({u, p});
   localStorage.setItem("users", JSON.stringify(users));
 
-  showUsers();
+  alert("Амжилттай нэвтэрлээ");
 }
 
-// харуулах
+// admin-д харагдах
 function showUsers() {
   let users = JSON.parse(localStorage.getItem("users") || "[]");
   let list = document.getElementById("list");
@@ -82,10 +98,7 @@ function showUsers() {
     list.appendChild(li);
   });
 }
-
-showUsers();
 </script>
 
 </body>
 </html>
-
