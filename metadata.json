@@ -1,0 +1,5 @@
+{
+  "name": "OLZ Poker",
+  "description": "A poker-style login system with a hidden real-time admin panel.",
+  "requestFramePermissions": []
+}
