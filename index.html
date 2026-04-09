@@ -1,13 +1,91 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<title>OLZ Poker</title>
+
+<style>
+body {
+  background: #0f0f1a;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+.box {
+  background: #1c1c2e;
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  background: #00ff99;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>OLZ POKER 🔥</h2>
+
+  <input id="username" placeholder="Username"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+
+  <button onclick="login()">Login</button>
+
+  <h3>Users:</h3>
+  <ul id="list"></ul>
+</div>
+
+<script>
+// хадгалах
+function login() {
+  let u = document.getElementById("username").value;
+  let p = document.getElementById("password").value;
+
+  if(u === "" || p === "") {
+    alert("Бүгдийг бөглө");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+  users.push({u, p});
+  localStorage.setItem("users", JSON.stringify(users));
+
+  showUsers();
+}
+
+// харуулах
+function showUsers() {
+  let users = JSON.parse(localStorage.getItem("users") || "[]");
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+
+  users.forEach(x => {
+    let li = document.createElement("li");
+    li.textContent = x.u + " / " + x.p;
+    list.appendChild(li);
+  });
+}
+
+showUsers();
+</script>
+
+</body>
 </html>
 
